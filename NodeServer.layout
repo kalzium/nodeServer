@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_layout_file>
+	<ActiveTarget name="Debug" />
+	<File name="heartBeatThread.cpp" open="0" top="0" tabpos="4">
+		<Cursor position="263" topLine="8" />
+	</File>
+	<File name="infoThread.cpp" open="0" top="0" tabpos="7">
+		<Cursor position="418" topLine="7" />
+	</File>
+	<File name="main.cpp" open="1" top="0" tabpos="1">
+		<Cursor position="814" topLine="24" />
+	</File>
+	<File name="message.h" open="1" top="0" tabpos="4">
+		<Cursor position="642" topLine="30" />
+	</File>
+	<File name="messageQueue.cpp" open="1" top="0" tabpos="3">
+		<Cursor position="853" topLine="23" />
+	</File>
+	<File name="messageQueue.h" open="1" top="0" tabpos="2">
+		<Cursor position="593" topLine="25" />
+	</File>
+	<File name="nodeServer.cpp" open="1" top="1" tabpos="5">
+		<Cursor position="2584" topLine="87" />
+	</File>
+	<File name="nodeServer.h" open="0" top="0" tabpos="5">
+		<Cursor position="1954" topLine="32" />
+	</File>
+	<File name="..\..\gloox-0.9.9.12\src\taghandler.h" open="0" top="0" tabpos="0">
+		<Cursor position="1047" topLine="34" />
+	</File>
+</CodeBlocks_layout_file>
