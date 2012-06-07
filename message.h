@@ -11,7 +11,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string>
-#include "tag.h"
+#include <../../gloox-0.9.9.12/src/tag.h>
 
 using namespace std;
 using namespace gloox;

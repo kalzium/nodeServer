@@ -17,7 +17,7 @@
 #include <boost/thread.hpp>
 #include <boost/asio.hpp>
 #include <iostream>
-#include <Tag.h>
+#include <../../gloox-0.9.9.12/src/tag.h>
 #include <../../gloox-0.9.9.12/src/parser.h>
 #include <../../gloox-0.9.9.12/src/taghandler.h>
 #include "heartBeatThread.h"

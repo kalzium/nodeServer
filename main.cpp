@@ -13,7 +13,7 @@
 #include <boost/asio.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>
 
-#include "tag.h"
+#include <../../gloox-0.9.9.12/src/tag.h>
 #include "message.h"
 #include "messageQueue.h"
 #include "nodeServer.h"
