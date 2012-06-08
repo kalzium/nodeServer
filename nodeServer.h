@@ -49,6 +49,11 @@ class nodeServer:public TagHandler
     //the receive data buffer
     char data[100];
 
+    //a control sign
+    //to state if the socket has been initialized correctly.
+    //namely, possess a NID or generate a unique code to get a NID
+    bool isInitial;
+
 public:
     nodeServer(io_service &io):
         ios(io),
@@ -62,6 +67,7 @@ public:
         hbQueue = new msgQueue();
         itQueue = new msgQueue();
         p = new Parser(this);
+        isInitial = false;
         start();
     }
     virtual ~nodeServer()

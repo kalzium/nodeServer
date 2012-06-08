@@ -96,6 +96,27 @@ void nodeServer::handleTag( Tag *tag )
 {
     //in this function, we shall decide with queue the Tag would go to.
     int type = getType(tag);
+    if(isInitial==false)
+    {
+        //send back an error Tag
+        //except receiving a unique code or NID
+        switch(type)
+        {
+        case 2:
+        {
+            //store the NID
+
+
+            //or receiving the unique code
+            //then generate a NID to send back
+            //and store the NID
+            break;
+        }
+        default:
+            //send an error Tag
+            break;
+        }
+    }
     switch(type)
     {
     case 1:
@@ -107,7 +128,8 @@ void nodeServer::handleTag( Tag *tag )
     {
         break;
     }
-    default:break;
+    default:
+        break;
     }
 }
 
