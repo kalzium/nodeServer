@@ -5,12 +5,6 @@
  * Created on 2012.6.5
  */
 
-///
-///main class function:
-///1.waiting the clients to connect
-///2.start connect to MS
-///3.srart working threads
-///
 #ifndef NODESERVER_H_
 #define NODESERVER_H_
 
@@ -20,8 +14,8 @@
 #include <../../gloox-0.9.9.12/src/tag.h>
 #include <../../gloox-0.9.9.12/src/parser.h>
 #include <../../gloox-0.9.9.12/src/taghandler.h>
-#include "heartBeatThread.h"
-#include "infoThread.h"
+#include "messageQueue.h"
+#include "snMap.h"
 
 using namespace std;
 using namespace boost::asio;
@@ -49,15 +43,13 @@ class nodeServer:public TagHandler
     //the receive data buffer
     char data[100];
 
-    //a control sign
-    //to state if the socket has been initialized correctly.
-    //namely, possess a NID or generate a unique code to get a NID
-    bool isInitial;
+    //holds the online client infos
+    snMap* online;
 
 public:
     nodeServer(io_service &io):
         ios(io),
-        acceptor(ios,ip::tcp::endpoint(ip::tcp::v4(),6688)),
+        acceptor(ios,ip::tcp::endpoint(ip::tcp::v4(),6699)),
         toEndpoint(ip::address::from_string("127.0.0.1"),6628)
     {
         //toEndpoint(ip::address::from_string("127.0.0.1"),6628);
@@ -67,14 +59,15 @@ public:
         hbQueue = new msgQueue();
         itQueue = new msgQueue();
         p = new Parser(this);
-        isInitial = false;
+        online = new snMap(ios);
+//        isInitial = false;
         start();
     }
     virtual ~nodeServer()
     {
-        delete hbQueue;
-        delete itQueue;
-        delete p;
+        if(hbQueue!=NULL)delete hbQueue;
+        if(itQueue!=NULL)delete itQueue;
+        if(p!=NULL)delete p;
     }
     void start();
     void accept_handler(const system::error_code& ec,sock_ptr sock);

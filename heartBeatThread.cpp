@@ -1,6 +1,6 @@
 /*
  * File:   heartBeatThread.cpp
- * Author: chenkexin
+ * Author: zhangxiaobo
  *
  * Created on 2012.6.4
  */

@@ -26,12 +26,13 @@ msgQueue(){}
 ~msgQueue(){}
 //options that give others to use this queue
 
-//extract the first Tag in the queue
-//and do the process work
-Tag* searchMsg(string name);
-
 //add the message in the list
 void addMsg(Tag &t);
+
+//get the first msg.
+//if the queue is empty, return NULL
+//if not, return the first Tag.
+Tag* getMsg();
 
 //print the list
 //a helper function that will be usefull when debug

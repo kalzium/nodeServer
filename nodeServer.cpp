@@ -12,7 +12,6 @@ extern void infoFunc();
 void nodeServer::start()
 {
     sock_ptr sockAccept(new ip::tcp::socket(ios));
-
     //wait client async
     acceptor.async_accept(*sockAccept,
                           bind(&nodeServer::accept_handler,
@@ -27,19 +26,22 @@ void nodeServer::start()
                                     placeholders::error,
                                     sockConnect));
     //start the working threads
+//    cout<<"NOW£Ó£Ô£Á£Ò£Ô"<<endl;
     thread hb_thread(heartBeatFunc);
     thread it_thread(infoFunc);
 
-    hb_thread.join();
-    it_thread.join();
+//    hb_thread.join();
+//    it_thread.join();
 }
 
 void nodeServer::accept_handler(const system::error_code& ec,sock_ptr sock)
 {
     if(ec)
     {
+        cout<<ec<<endl;
         return;
     }
+    cout<<"DFASDF"<<endl;
     //call these functions to keep accepting the following connection
     sock_ptr sockAccept(new ip::tcp::socket(ios));
     acceptor.async_accept(*sockAccept,
@@ -50,7 +52,29 @@ void nodeServer::accept_handler(const system::error_code& ec,sock_ptr sock)
 
     //TODO
     cout<<"ACCEPT client connect:  "<<sock->remote_endpoint().address()<<endl;
+///initialize work
+    //accept unique code or NID
+    //all the identifier is of length 128
+    char nid[129];
+    sock->read_some(buffer(nid));
+    cout<<"the nid"<<nid<<endl;
+    if(nid[0]=='0')
+    {
+        //store the NID with socket into map
+    shared_ptr<NodeID> temp(new NodeID(nid));
+    online->addPair(*temp,sock);
+    }
+    if(nid[0]='1')
+    {
+        //generate the NID for client and send it back
+        //and store the NID with socket into map
 
+        //generate the NID for client
+     shared_ptr<NodeID> temp(new NodeID(nid));
+     online->addPair(*temp,sock);
+    }
+
+///when initialize finished
     //begin read data from this sock
     //char data[100];
     sock->async_read_some(buffer(data),
@@ -92,42 +116,24 @@ void nodeServer::read_handler(const system::error_code& ec, char* data,sock_ptr 
                                sock));
 }
 
+
 void nodeServer::handleTag( Tag *tag )
 {
     //in this function, we shall decide with queue the Tag would go to.
     int type = getType(tag);
-    if(isInitial==false)
-    {
-        //send back an error Tag
-        //except receiving a unique code or NID
-        switch(type)
-        {
-        case 2:
-        {
-            //store the NID
 
-
-            //or receiving the unique code
-            //then generate a NID to send back
-            //and store the NID
-            break;
-        }
-        default:
-            //send an error Tag
-            break;
-        }
-    }
     switch(type)
     {
+    case 0:
+        itQueue->addMsg(*tag);
+        break;
     case 1:
     {
         hbQueue->addMsg(*tag);
         break;
     }
-    case 2:
-    {
+    case 2://ignore
         break;
-    }
     default:
         break;
     }
@@ -136,7 +142,8 @@ void nodeServer::handleTag( Tag *tag )
 int nodeServer::getType(Tag* t)
 {
     //node server will only receive the messages with
-    //suffix like "X2c"
-    if(t->name()=="HeartBeat_c2n")return 1;
-    if(t->name()=="Generate_c2n")return 2;
+    //suffix like "X2c", and "NID"
+    if(t->name()=="NID") return 0;
+    if(t->name()=="HeartBeat_c2n") return 1;
+    if(t->name()=="Generate_c2n") return 2;
 }

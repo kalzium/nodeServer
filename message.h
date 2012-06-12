@@ -4,6 +4,7 @@
  *
  * Created on 2012.6.3
  */
+
 #ifndef _MESSAGE_H_
 #define _MESSAGE_H_
 
@@ -37,15 +38,17 @@ class MESSAGE
     public:
 //如果使用Tag作为载体就不需要length字段了。
 //<HeartBeat_n2m></HeartBeat_n2m>
-    Tag* N_HEARTBEAT()
+    Tag* N_HEARTBEAT(string NID)
     {
         Tag* t = new Tag("HeartBeat_n2m");
+        t->addAttribute("nid",NID);
         return t;
     }
 
-    Tag* C_HEARTBEAT()
+    Tag* C_HEARTBEAT(string NID)
     {
         Tag* t = new Tag("HeartBeat_c2n");
+        t->addAttribute("nid",NID);
         return t;
     }
 
@@ -58,12 +61,19 @@ class MESSAGE
         return t;
     }
 
-    Tag*  N_NID(string clientNID)
+    //the NID when initializing the XML connect
+    Tag*  NID(string yourNID)
     {
-        Tag* t = new Tag("NID_n2c");
-        Tag* nid = new Tag("NID");
-        nid->setCData(clientNID);
-        t->addChild(nid);
+        Tag* t = new Tag("NID");
+        t->addAttribute("nid",yourNID);
+        return t;
+    }
+
+    //the NID generated for client
+    Tag* backNID(string clientNID)
+    {
+        Tag* t = new Tag("NID");
+        t->setCData(clientNID);
         return t;
     }
 
