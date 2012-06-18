@@ -1,20 +1,23 @@
 #include "NodeID.h"
-#include "string.h"
+
+
+NodeID::NodeID(const NodeID &n)
+{
+	idArray = new char[129];
+	strncpy(idArray, n.toString().c_str(), 128);
+	idArray[n.toString().size()] = '\0';
+};
 
 NodeID::NodeID(string nidStr)
 {
-	idArray=new char[128];
+	idArray=new char[129];
 	strncpy(idArray, nidStr.c_str(), 128);
+	idArray[nidStr.size()] = '\0';
 }
 NodeID::NodeID(ServerID* sid,string pecialStr)
 {
-	idArray=new char[128];
+	idArray=new char[129];
 	//ππ‘ÏNodeID
-}
-
-NodeID::NodeID(char* nidc)
-{
-    idArray = nidc;
 }
 
 
@@ -28,14 +31,14 @@ NodeID::~NodeID(void)
 
 string NodeID::toString()const
 {
-	return string(idArray);
+	return string(idArray); 
 }
 
 //inline bool NodeID::operator <(const NodeID &nid)const
 bool NodeID::operator <(const NodeID &nid)const
 {
 	return this->toString()<nid.toString();
-}
+} 
 
 ostream & operator << ( ostream & os , const NodeID &nid )
 {

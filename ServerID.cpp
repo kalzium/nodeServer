@@ -1,5 +1,5 @@
 #include "ServerID.h"
-#include "string.h"
+
 
 ServerID::ServerID(string sidStr)
 {
@@ -9,13 +9,13 @@ ServerID::ServerID(string sidStr)
 
 string ServerID::toString()const
 {
-	return string(idArray);
+	return string(idArray); 
 }
 
 inline bool ServerID::operator <(const ServerID &sid)
 {
 	return this->toString()<sid.toString();
-}
+} 
 
 ostream & operator << ( ostream & os , const ServerID &sid )
 {

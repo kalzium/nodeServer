@@ -10,11 +10,11 @@ class NodeID
 private:
 	char *idArray;
 public:
+	NodeID(const NodeID &n);
 	NodeID(string nidStr);
-	NodeID(char* nidc);
 	NodeID(ServerID* sid,string pecialStr);
 	~NodeID(void);
-	string toString()const;
+	string NodeID::toString()const;
 	bool operator <(const NodeID &nid)const;
 	friend ostream & operator << ( ostream & os , const NodeID &nid );
 };
